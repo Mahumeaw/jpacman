@@ -1,5 +1,6 @@
 package nl.tudelft.jpacman.level;
 
+import nl.tudelft.jpacman.PacmanConfigurationException;
 import nl.tudelft.jpacman.board.BoardFactory;
 import nl.tudelft.jpacman.npc.ghost.Blinky;
 import org.junit.jupiter.api.Assertions;
@@ -51,9 +52,8 @@ public class MapParserTest {
      */
     @Test
     public void testParseMapWrong1() {
-        // We expect an exception (likely IllegalArgumentException) to be thrown.
-        IllegalArgumentException thrown =
-            Assertions.assertThrows(IllegalArgumentException.class, () -> {
+        PacmanConfigurationException thrown =
+            Assertions.assertThrows(PacmanConfigurationException.class, () -> {
                 MockitoAnnotations.initMocks(this);
                 assertNotNull(boardFactory);
                 assertNotNull(levelFactory);
@@ -65,7 +65,7 @@ public class MapParserTest {
                 map.add("#####");
                 mapParser.parseMap(map);
             });
-        Assertions.assertEquals("Map rows must have consistent width.", thrown.getMessage());
+        Assertions.assertEquals("Input text lines are not of equal width.", thrown.getMessage());
     }
 
 }
